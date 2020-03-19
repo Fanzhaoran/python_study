@@ -1,4 +1,4 @@
-from functiontools import reduce
+from functools import reduce
 
 def fun(n):
   return reduce(lambda x,y:x*y,range(1,n+1))
