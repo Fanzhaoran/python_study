@@ -8,9 +8,9 @@ git clone https://github.com/Fanzhaoran/A_Python_study.git
 git init
 git add  ** 
 git commit -m "message"
-git remote add oringin https://github.com/Fanzhaoran/NewRoad.git
+git remote add oringin https://github.com/Fanzhaoran/A_Python_study.git
 git push -u origin master
 
 或者
-git remote add oringin https://github.com/Fanzhaoran/NewRoad.git
+git remote add oringin https://github.com/Fanzhaoran/A_Python_study.git
 git push -u origin master
