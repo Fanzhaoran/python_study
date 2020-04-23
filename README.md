@@ -2,7 +2,7 @@
 Practice for programing
 
 远程下载
-git clone git@github.com:Fanzhaoran/NewRoad.git
+git clone https://github.com/Fanzhaoran/A_Python_study.git
 
 远程上传：
 git init
