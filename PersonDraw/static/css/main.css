@@ -1,0 +1,36 @@
+title{
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    top: 0;
+    left: 30%;
+    right:30%;
+    background: #333;
+}
+
+.left_up{
+    position: absolute; /*决对定位*/
+    top: 10%; /*距上部*/
+    left: 5%; /*距左部*/
+    width: 30%;
+    height: 40%;
+    background-color: #19CAAD;
+  }
+
+.left_down{
+    position: absolute; /*决对定位*/
+    top: 52%; /*距上部*/
+    left: 5%; /*距左部*/
+    width: 30%;
+    height: 40%;
+    background-color: #19CAAD;
+  }
+.right_up{
+    position: absolute; /*决对定位*/
+    top: 10%; /*距上部*/
+    right: 5%; /*距左部*/
+    width: 55%;
+    height: 80%;
+    background-color: #19CAAD;
+    /*background-color: rgb(108, 29, 130);*/
+  }

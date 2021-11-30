@@ -1,0 +1,221 @@
+ {% load static %}
+<!DOCTYPE html>
+{# {% load static %}#}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Info</title>
+    <link href="{% static "css/main.css" %}" rel="stylesheet" type="text/css"/>
+    <script src="{% static "js/echarts.min.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/echarts-wordcloud.js" %}" type="text/javascript"></script>
+{#    <script src="{% static "js/echarts-wordcloud.min.js" %}" type="text/javascript"></script>#}
+{#    <script src="../static/js/echarts-wordcloud.min.js"></script>#}
+    <style>
+        body
+            {
+                background-color:#19CAAD;
+                {#background-color: #122149;#}
+            }
+    </style>
+</head>
+<body>
+{#    <h1>程序员自画像</h1>#}
+    <form action="/" method="post"> {% csrf_token %}
+    <h1>程序员自画像
+        <input type="text" name="query" class="input-group" placeholder="姓名">
+        <button type="submit">搜索</button>
+    </h1>
+    </form>
+    <div id="main" class="left_up" ></div>
+    <div id="pie" class="left_down" ></div>
+    <div id="rect" class="right_up" ></div>
+</body>
+</html>
+{#云图#}
+<script>
+    var chart = document.getElementById('main');
+    var myChart = echarts.init(chart);
+    var option = {
+        tooltip: {},
+        series: [ {
+            type: 'wordCloud',
+            gridSize: 2,
+            sizeRange: [12, 50],
+            rotationRange: [-90, 90],
+            shape: 'pentagon',
+            width: 600,
+            height: 400,
+            drawOutOfBound: true,
+            textStyle: {
+                color: function () {
+                    return 'rgb(' + [
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160)
+                    ].join(',') + ')';
+                }
+            },
+            emphasis: {
+                textStyle: {
+                    shadowBlur: 10,
+                    shadowColor: '#333'
+                }
+            },
+            data: {{ List|safe }}
+            {#    [#}
+            {#    {#}
+            {#        name: '高级工程师',#}
+            {#        value: 10#}
+            {#    },#}
+            {#    {#}
+            {#        name: '8年',#}
+            {#        value: 6#}
+            {#    },#}
+            {#    {#}
+            {#        name: 'Python',#}
+            {#        value: 5#}
+            {#    },#}
+            {#    {#}
+            {#        name: 'Django',#}
+            {#        value: 4#}
+            {#    }#}
+            {#]#}
+        } ]
+    };
+    {#console.log(option.series[0]['data']);#}
+    {#chart.setOption(option);#}
+    option && myChart.setOption(option);
+    {#window.onresize = chart.resize;#}
+</script>
+{# 饼图#}
+<script>
+    var chartDom = document.getElementById('pie');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            top: '5%',
+            left: 'center'
+        },
+        series: [
+            {
+                name: '部门',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    show: false,
+                    position: 'center'
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '40',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: false
+                },
+                data: {{ skill|safe }}
+                {#    [#}
+                {#    {value: 1048, name: '搜索引擎'},#}
+                {#    {value: 735, name: '直接访问'},#}
+                {#    {value: 580, name: '邮件营销'},#}
+                {#    {value: 484, name: '联盟广告'},#}
+                {#    {value: 300, name: '视频广告'}#}
+                {#]#}
+            }
+        ]
+    };
+    console.log(option.series[0]['data']);
+    option && myChart.setOption(option);
+
+</script>
+
+{# 混合#}
+{##}
+{#<script>#}
+{#    var chartDom = document.getElementById('rect');#}
+{#    var myChart = echarts.init(chartDom);#}
+{#    var option;#}
+{##}
+{#    option = {#}
+{#        legend: {},#}
+{#        tooltip: {},#}
+{#        dataset: {#}
+{#            source: [#}
+{#                ['product', '2012', '2013', '2014', '2015'],#}
+{#                ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],#}
+{#                ['Milk Tea', 86.5, 92.1, 85.7, 83.1],#}
+{#                ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4]#}
+{#            ]#}
+{#        },#}
+{#        xAxis: [#}
+{#            {type: 'category', gridIndex: 0},#}
+{#            {type: 'category', gridIndex: 1}#}
+{#        ],#}
+{#        yAxis: [#}
+{#            {gridIndex: 0},#}
+{#            {gridIndex: 1}#}
+{#        ],#}
+{#        grid: [#}
+{#            {bottom: '55%'},#}
+{#            {top: '55%'}#}
+{#        ],#}
+{#        series: [#}
+{#            // These series are in the first grid.#}
+{#            {type: 'bar', seriesLayoutBy: 'row'},#}
+{#            {type: 'bar', seriesLayoutBy: 'row'},#}
+{#            {type: 'bar', seriesLayoutBy: 'row'},#}
+{#            // These series are in the second grid.#}
+{#            {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},#}
+{#            {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},#}
+{#            {type: 'bar', xAxisIndex: 1, yAxisIndex: 1},#}
+{#            {type: 'bar', xAxisIndex: 1, yAxisIndex: 1}#}
+{#        ]#}
+{#    };#}
+{##}
+{#    option && myChart.setOption(option);#}
+{#</script>#}
+ <script>
+     var chartDom = document.getElementById('rect');
+     var myChart = echarts.init(chartDom);
+     var option;
+
+     option = {
+      title: {
+        text: 'bug分布图',
+        subtext: '',
+        left: 'center'
+      },
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left'
+      },
+      series: [
+        {
+          name: 'Access From',
+          type: 'pie',
+          radius: '50%',
+          data: {{ bugs|safe }},
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+     };
+
+     option && myChart.setOption(option);
+ </script>
