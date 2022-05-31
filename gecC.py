@@ -6,7 +6,7 @@
 import subprocess
 
 
-cmd = "tcping 59.219.204.43 13001"
+cmd = "tcping 192.168.0.1 22"
 p = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,close_fds=True)
 
 for i in iter(p.stdout.readline,'b'):
