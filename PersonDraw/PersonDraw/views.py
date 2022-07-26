@@ -23,39 +23,6 @@ developers = {'王科': u"'数据统计展示','2D展示','实时视频展示','
 bug_type = ['参数唯一性约束', '参数范围约束', '非法字符约束', '流程异常处理', '接口规范', '功能缺陷', '必选参数约束', '数据类型约束', '权限约束', '其他']
 
 
-def get_data_from_zentao(sql):
-    with SSHTunnelForwarder(
-            ('36.155.108.148', 2222),
-            ssh_password='Oa878464!',
-            ssh_username='iotest',
-            remote_bind_address=('127.0.0.1', 3307)
-    ) as server:
-        # print(u'SSH连接成功')
-        db = pymysql.connect(host='127.0.0.1',
-                             port=server.local_bind_port,
-                             user='root',
-                             passwd='123456',
-                             db='zentao',
-                             charset='utf8')
-        # print(u'mysql数据库连接成功')
-        # 使用cursor()方法获取操作游标
-        cursor = db.cursor()
-
-        # 使用execute方法执行SQL语句
-        cursor.execute(sql)
-
-        # 使用 fetchone() 方法获取一条数据
-        # data = cursor.fetchone()
-
-        # 使用 fetchone() 方法获取所有数据
-        results = cursor.fetchall()
-
-        # 关闭数据库连接
-        db.close()
-
-        return results
-
-
 def get_developer_bug_count(developer):
     # 获取每个开发者的bug总数
     sql = "SELECT SUM(CASE WHEN name IN (%s) THEN 1 ELSE 0 END) \
